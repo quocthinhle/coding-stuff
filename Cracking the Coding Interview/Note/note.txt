@@ -1,0 +1,1 @@
+1. Input string with spaces, Remember to use getline, not cin; 
