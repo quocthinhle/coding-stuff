@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-#define pb push_back
-#define ll long long
+#include <bts/stdc++.h>
 using namespace std;
 
 class Node {
@@ -21,6 +19,34 @@ class LList {
             root->data = data;
             root->next = NULL;
         }
+
+        Node* checkCycle (LList* a) {
+            Node* fast = a->root;
+            Node* slow = a->root;
+
+            if (a->root == NULL || a->root->next == NULL) return NULL;
+
+            while (fast && fast->next) {
+                fast = fast->next->next;
+                slow = slow->next;
+                if (slow = fast) {
+                    break;
+                }
+            }
+
+            if (fast == NULL || fast->next == NULL) {
+                return NULL;
+            }
+
+            slow = head;
+            while (slow != fast) {
+                slow = slow->next;
+                fast = fast->next;
+            }
+
+            return fast;
+        }
+
         void show() {
             Node* temp = root;
             int i = 0;
@@ -58,39 +84,6 @@ class LList {
             }
         }
 
-        void partition(int data) {
-            Node* head = root;
-            Node* tail = root;
-            while (root != NULL) {
-                Node* next = root->next;
-                if (root->data < data) {
-                    root->next = head;
-                    head = root;
-                }
-                else {
-                    tail->next = root;
-                    tail = root;
-                }
-                root = next;
-            }
-            tail->next = NULL;
-            root = head;
-        }
 
 };
 
-int main() {
-    LList* t = new LList();
-    t->append(1);
-    t->append(2);
-    t->append(8);
-    t->append(6);
-    t->append(3);
-    t->append(4);
-    t->append(5);
-    t->insertHead(9);
-    t->show();
-    t->partition(5);
-    t->show();
-    return 0;
-}

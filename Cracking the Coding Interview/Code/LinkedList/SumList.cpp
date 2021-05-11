@@ -13,6 +13,7 @@ class LList {
     private: 
         Node* root;
     public:
+        friend LList* SumList(Node* , Node*);
         LList() {
             root = NULL;
         }
@@ -45,6 +46,10 @@ class LList {
             }
         }
 
+        Node* getRoot() {
+            return this->root;
+        }
+
         void insertHead (int data) {
             Node* temp = new Node();
             temp->data = data;
@@ -58,39 +63,53 @@ class LList {
             }
         }
 
-        void partition(int data) {
-            Node* head = root;
-            Node* tail = root;
-            while (root != NULL) {
-                Node* next = root->next;
-                if (root->data < data) {
-                    root->next = head;
-                    head = root;
-                }
-                else {
-                    tail->next = root;
-                    tail = root;
-                }
-                root = next;
-            }
-            tail->next = NULL;
-            root = head;
-        }
-
 };
 
+LList* SumList(Node* f, Node* s) {
+    LList* r = new LList();
+    Node* temp  = new Node();
+    int carry = 0;
+    while (f != NULL && s != NULL) {
+        int res = f->data + s->data + carry;
+        
+        if (carry) --carry;
+
+        if (res >= 10) {
+            res -= 10;
+            carry += 1;
+        }
+
+        r->append(res);
+
+        s = s->next;
+        f = f->next;
+    }
+
+    if (f == NULL && s == NULL) {
+        return r;
+    }
+    else {
+        while (f != NULL) {
+            int res = f->data + carry;
+            if (carry) --carry;
+            r->append(res);
+            f = f->next;
+        }
+        while (s != NULL) {
+            int res = s->data + carry;
+            if (carry) --carry;
+            r->append(res);
+            s = s->next;
+        }
+        return r;
+    }
+}
+
 int main() {
-    LList* t = new LList();
-    t->append(1);
-    t->append(2);
-    t->append(8);
-    t->append(6);
-    t->append(3);
-    t->append(4);
-    t->append(5);
-    t->insertHead(9);
-    t->show();
-    t->partition(5);
-    t->show();
-    return 0;
+    LList *first = new LList();
+    LList *second = new LList();
+    first->append(7);   first->append(1);   first->append(6); 
+    second->append(5);  second->append(9);  second->append(2); second->append(1); second->append(4);
+    LList* r = SumList(first->getRoot(), second->getRoot());
+    r->show();
 }

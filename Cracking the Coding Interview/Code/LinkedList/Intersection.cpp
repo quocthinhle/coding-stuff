@@ -21,6 +21,9 @@ class LList {
             root->data = data;
             root->next = NULL;
         }
+
+        friend Node* checkIntersection(LList *a, LList *b);
+
         void show() {
             Node* temp = root;
             int i = 0;
@@ -58,39 +61,50 @@ class LList {
             }
         }
 
-        void partition(int data) {
-            Node* head = root;
-            Node* tail = root;
-            while (root != NULL) {
-                Node* next = root->next;
-                if (root->data < data) {
-                    root->next = head;
-                    head = root;
-                }
-                else {
-                    tail->next = root;
-                    tail = root;
-                }
-                root = next;
+        int getSize() {
+            int sz = 0;
+            Node* t = root;
+            while (t != NULL) {
+                sz += 1;
+                t = t->next;
             }
-            tail->next = NULL;
-            root = head;
+            return sz;
         }
 
 };
 
+Node* checkIntersection(LList *a, LList *b) {
+    int sz1 = a->getSize();
+    int sz2 = b->getSize();
+    
+    Node* head1 = a->root;
+    Node* head2 = b->root;
+
+    if (sz1 > sz2) {
+        for (int i = 0; i < sz1-sz2; ++i) {
+            head2 = head2->next;
+        }
+    }
+
+    while (head1 != NULL  && head2 != NULL) {
+        if (head1 == head2) {
+            return head1;
+        }
+
+
+        head2 = head2->next;
+        head1 = head1->next;
+    }
+
+    return NULL;
+}
+
 int main() {
-    LList* t = new LList();
-    t->append(1);
-    t->append(2);
-    t->append(8);
-    t->append(6);
-    t->append(3);
-    t->append(4);
-    t->append(5);
-    t->insertHead(9);
-    t->show();
-    t->partition(5);
-    t->show();
-    return 0;
+    LList* a = new LList();
+    LList* b = new LList();
+
+    a->append(5);
+    a->append(6);
+    a->append(6);
+    cout << a->getSize();
 }

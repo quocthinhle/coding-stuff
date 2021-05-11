@@ -58,39 +58,42 @@ class LList {
             }
         }
 
-        void partition(int data) {
-            Node* head = root;
-            Node* tail = root;
-            while (root != NULL) {
-                Node* next = root->next;
-                if (root->data < data) {
-                    root->next = head;
-                    head = root;
-                }
-                else {
-                    tail->next = root;
-                    tail = root;
-                }
-                root = next;
+        bool checkPalidrome() {
+            Node* fast = root;
+            Node* slow = root;
+
+            stack<int> s;
+
+            while (fast != NULL && fast->next != NULL) {
+                s.push(slow->data);
+                slow = slow->next;
+                fast = (fast->next)->next;
             }
-            tail->next = NULL;
-            root = head;
+
+            if (fast != NULL) {
+                slow = slow->next;
+            }
+
+            while (slow != NULL) {
+                int top = s.top();
+                s.pop();
+                if (top != slow->data) {
+                    return false;
+                }
+                slow = slow->next;
+            }
+
+            return true;
         }
 
 };
 
 int main() {
-    LList* t = new LList();
-    t->append(1);
-    t->append(2);
-    t->append(8);
-    t->append(6);
-    t->append(3);
-    t->append(4);
-    t->append(5);
-    t->insertHead(9);
-    t->show();
-    t->partition(5);
-    t->show();
-    return 0;
+    LList *T = new LList();
+    T->append(1);
+    T->append(2);
+    T->append(3);
+    T->append(2);
+    T->append(1);
+    cout << T->checkPalidrome();
 }
