@@ -72,4 +72,13 @@ int main() {
     cin >> x;
     rotateLeft(a, x, 6);
     for (int i = 0; i < 6; ++i) cout << a[i] << " ";
+
+    int yd = 5, y =5;
+
+    int k = 2;
+    while (k--) {
+        cout << k << endl;
+    }
+
+    if (yd %= y ) cout << ">?";
 }

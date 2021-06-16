@@ -34,7 +34,7 @@ int main() {
         ll nax = ans[0];
         for (ll i = 0; i < ans.size(); ++i) {
             cout << ans[i] << " ";
-            nax = max(nax, ans[i]);
+            nax = max(nax, ans[i]);h
         }
         cout << "\n";
     }
