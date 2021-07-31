@@ -27,12 +27,23 @@ public class SlidingWindowMaximum {
 
 		return res;
 	}
+
+	public static void test() {
+		System.out.println("asdasd");
+		char c = 'a';
+		String c = "add";
+		System.out.println(c.length());
+		System.out.println(c - 97);
+	}
 	public static void main(String[] args) {
 		int[] arr = {1,3,-1,-3,5,3,6,7};
 		int k = 3;
 		int[] res = Solve(arr, k);
-		for (int i = 0; i < res.length; ++i) {
-			System.out.print(res[i] + " ");
-		}
-	}	
+		// for (int i = 0; i < res.length; ++i) {
+		// 	System.out.print(res[i] + " ");
+		// }
+		test();
+	}
+	
+	
 }
