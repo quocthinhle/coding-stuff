@@ -1,4 +1,5 @@
 public class gridTraveler {
+	// Recursion solution
 	public static int solve(int a, int b) {
 		System.out.println(a + " " + b);
 		if (a == 1 && b == 1) {
@@ -13,3 +14,5 @@ public class gridTraveler {
 		System.out.println(solve(2,3));
 	}
 }
+
+// If we implement a memo-recursion -> it turns into DP
